@@ -1,52 +1,46 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank" rel="noopener">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank" rel="noopener">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <md-card
+      class="cat-card"
+      v-for="(cat, index) in cats"
+      v-bind:key="index"
+    >
+      <md-card-media>
+        <img :src="cat.url" alt="People">
+      </md-card-media>
+
+      <md-card-content>
+        {{ cat.title }}
+      </md-card-content>
+    </md-card>
+    <router-link to="/add">
+      <md-button class="md-fab md-primary home__add-button">
+        <md-icon>add</md-icon>
+      </md-button>
+    </router-link>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js PWA'
+  import { catsRef } from '../database'
+  export default {
+    name: 'hello',
+    firebase: {
+      cats: catsRef
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #35495E;
-}
+  .cat-card {
+    margin: 20px;
+    z-index: 0;
+  }
+  .home__add-button {
+    position: fixed;
+    bottom: 15px;
+    right: 10px;
+    z-index: 1;
+  }
 </style>
